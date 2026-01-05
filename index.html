@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 24 Monday practice quiz</title>
+    <style>
+        /* --- CSS Variables & Themes --- */
+        :root {
+            /* Base Transition */
+            --transition-speed: 0.3s;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* 1. Modern Dark (Default) */
+        [data-theme="dark"] {
+            --bg-body: #1e293b;
+            --bg-card: #334155;
+            --bg-header: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-accent: #38bdf8;
+            --border-color: #475569;
+            --highlight-bg: #475569;
+            --button-bg: #38bdf8;
+            --button-text: #0f172a;
+            --button-hover: #0ea5e9;
+            --feedback-success-bg: #064e3b;
+            --feedback-success-border: #059669;
+            --feedback-success-text: #a7f3d0;
+            --feedback-error-bg: #7f1d1d;
+            --feedback-error-border: #dc2626;
+            --feedback-error-text: #fecaca;
+        }
+
+        /* 2. Modern Light */
+        [data-theme="light"] {
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-accent: #2563eb;
+            --border-color: #e5e7eb;
+            --highlight-bg: #f3f4f6;
+            --button-bg: #2563eb;
+            --button-text: #ffffff;
+            --button-hover: #1d4ed8;
+            --feedback-success-bg: #ecfdf5;
+            --feedback-success-border: #34d399;
+            --feedback-success-text: #065f46;
+            --feedback-error-bg: #fef2f2;
+            --feedback-error-border: #f87171;
+            --feedback-error-text: #991b1b;
+        }
+
+        /* 3. Midnight (Pure Black) */
+        [data-theme="midnight"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --text-accent: #90caf9;
+            --border-color: #333333;
+            --highlight-bg: #1a1a1a;
+            --button-bg: #90caf9;
+            --button-text: #000000;
+            --button-hover: #42a5f5;
+            --feedback-success-bg: #051b11;
+            --feedback-success-border: #0f5132;
+            --feedback-success-text: #75b798;
+            --feedback-error-bg: #2c0b0e;
+            --feedback-error-border: #842029;
+            --feedback-error-text: #ea868f;
+        }
+
+        /* 4. Legacy Dark (Original) */
+        [data-theme="legacy-dark"] {
+            --bg-body: #2d343e;
+            --bg-card: #3c424f;
+            --bg-header: #3c424f;
+            --text-main: #e8e6e3;
+            --text-muted: #b0c4de;
+            --text-accent: #8ab4f8;
+            --border-color: #555;
+            --highlight-bg: #454c5a;
+            --button-bg: #8ab4f8;
+            --button-text: #202124;
+            --button-hover: #a3c5f9;
+            --feedback-success-bg: #344e41;
+            --feedback-success-border: #52b788;
+            --feedback-success-text: #c7f9cc;
+            --feedback-error-bg: #5e2129;
+            --feedback-error-border: #a4133c;
+            --feedback-error-text: #f8d7da;
+        }
+
+        /* 5. Sepia (Reading Mode) */
+        [data-theme="sepia"] {
+            --bg-body: #f4ecd8;
+            --bg-card: #fdf6e3;
+            --bg-header: #e4d5b7;
+            --text-main: #433422;
+            --text-muted: #7c6f5a;
+            --text-accent: #a05a2c;
+            --border-color: #d3c4a5;
+            --highlight-bg: #ebe1c9;
+            --button-bg: #a05a2c;
+            --button-text: #fdf6e3;
+            --button-hover: #864822;
+            --feedback-success-bg: #e6f4ea;
+            --feedback-success-border: #8ab893;
+            --feedback-success-text: #2e4c35;
+            --feedback-error-bg: #f9e3e3;
+            --feedback-error-border: #d48f8f;
+            --feedback-error-text: #5c2b2b;
+        }
+
+        /* 6. High Contrast */
+        [data-theme="contrast"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #ffffff;
+            --text-muted: #dddddd;
+            --text-accent: #ffff00;
+            --border-color: #ffffff;
+            --highlight-bg: #333333;
+            --button-bg: #ffff00;
+            --button-text: #000000;
+            --button-hover: #e6e600;
+            --feedback-success-bg: #000000;
+            --feedback-success-border: #00ff00;
+            --feedback-success-text: #00ff00;
+            --feedback-error-bg: #000000;
+            --feedback-error-border: #ff0000;
+            --feedback-error-text: #ff0000;
+        }
+
+        /* --- Global Reset & Layout --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Default to Sticky */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Class to remove sticky behavior */
+        header.unpinned {
+            position: relative;
+            box-shadow: none;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--text-accent);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pin-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .pin-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .pin-btn.pin-active {
+            color: var(--text-accent);
+            border-color: var(--text-accent);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        select#theme-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem 4rem 1rem;
+        }
+
+        .section-header {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-accent);
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Question Card --- */
+        .question-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .lo-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--text-accent);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Options --- */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--text-muted);
+        }
+
+        .option-label input {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            accent-color: var(--text-accent);
+            transform: scale(1.2);
+        }
+
+        /* --- Buttons --- */
+        .btn-check {
+            margin-top: 1.5rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-check:hover {
+            opacity: 0.9;
+        }
+
+        /* --- Feedback Area --- */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+            border: 1px solid transparent;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: var(--feedback-success-bg);
+            border-color: var(--feedback-success-border);
+            color: var(--feedback-success-text);
+        }
+
+        .feedback.incorrect {
+            background-color: var(--feedback-error-bg);
+            border-color: var(--feedback-error-border);
+            color: var(--feedback-error-text);
+        }
+
+        .feedback-header {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rationale {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .source {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-style: italic;
+            border-top: 1px dashed currentColor;
+            padding-top: 0.5rem;
+        }
+
+        /* --- Mobile Tweaks --- */
+        @media (max-width: 600px) {
+            header { padding: 1rem; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .controls-wrapper { width: 100%; justify-content: space-between; }
+            .question-card { padding: 1.5rem; }
+            header h1 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>Week 24 Monday practice quiz</h1>
+        <div class="controls-wrapper">
+            <!-- Pin Button -->
+            <button class="pin-btn pin-active" id="pin-btn" onclick="toggleHeader()" title="Pin/Unpin Header">
+                📌
+            </button>
+            
+            <div class="theme-control">
+                <label for="theme-select">Theme:</label>
+                <select id="theme-select" onchange="changeTheme(this.value)">
+                    <option value="dark">Modern Dark</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="light">Modern Light</option>
+                    <option value="legacy-dark">Legacy Dark</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="contrast">High Contrast</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="quiz-root">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        // --- Data ---
+        const quizData = [
+            // --- Blood, Body Fluids, and Cardiovascular Physiology ---
+            {
+                section: "Blood, Body Fluids, and Cardiovascular Physiology",
+                maskedLO: "LO1: Describe the composition of the main body fluid compartments and factors that alter body fluid distribution.",
+                fullLO: "LO1: Describe the composition of the main body fluid compartments and factors that alter body fluid distribution. (Blood, Body Fluids, and Cardiovascular Physiology)",
+                question: "A 70-kg male volunteers for a physiological study. The researchers aim to estimate the volume of his intracellular fluid (ICF) compartment based on standard physiological averages. Assuming standard body composition, what is the estimated volume of this participant's intracellular fluid?",
+                options: {
+                    A: "3.5 L",
+                    B: "10.5 L",
+                    C: "14 L",
+                    D: "28 L",
+                    E: "42 L"
+                },
+                correctAnswer: "D",
+                rationale: "Total body water (TBW) is approximately 60% of body weight. Intracellular fluid (ICF) makes up 2/3 of the TBW (or 40% of body weight). Extracellular fluid (ECF) makes up 1/3 of TBW (or 20% of body weight). Calculation: 70kg x 0.40 = 28 L.",
+                source: "blood, body fluid, and cardiovascular physiology.pdf, Slide 8: \"Total body water = 0.6 × (body weight); ICF = 0.4 × (body weight); ECF = 0.2 × (body weight)\""
+            },
+            {
+                section: "Blood, Body Fluids, and Cardiovascular Physiology",
+                maskedLO: "LO1: Describe the composition of the main body fluid compartments and factors that alter body fluid distribution.",
+                fullLO: "LO1: Describe the composition of the main body fluid compartments and factors that alter body fluid distribution. (Blood, Body Fluids, and Cardiovascular Physiology)",
+                question: "A 25-year-old athlete collapses during a marathon. On evaluation, he is found to be dehydrated due to excessive sweating without adequate water intake. Which of the following changes in body fluid compartments is most likely to have occurred in this patient?",
+                options: {
+                    A: "Increased ECF volume, decreased ICF volume",
+                    B: "Decreased ECF volume, decreased ICF volume",
+                    C: "Decreased ECF volume, increased ICF volume",
+                    D: "Increased ECF volume, increased ICF volume",
+                    E: "No change in compartment volumes"
+                },
+                correctAnswer: "B",
+                rationale: "Sweat is hyposmotic (contains more water than salt). Excessive sweating leads to a loss of water from the ECF, making the ECF hypertonic. Water then moves from the ICF to the ECF by osmosis to equilibrate osmolality, resulting in a decrease in volume in both compartments (contraction).",
+                source: "blood, body fluid, and cardiovascular physiology.pdf, Slide 15: \"Hypertonic ECF (cell shrinks)... Hypotonic ECF (cell swells)... Tonicity relates to the difference in osmolarity\""
+            },
+            {
+                section: "Blood, Body Fluids, and Cardiovascular Physiology",
+                maskedLO: "LO2: Explain the role of the cardiovascular system, capillary exchange and lymphatics in body fluid balance.",
+                fullLO: "LO2: Explain the role of the cardiovascular system, capillary exchange and lymphatics in body fluid balance. (Blood, Body Fluids, and Cardiovascular Physiology)",
+                question: "A 62-year-old woman undergoes a radical mastectomy with axillary lymph node dissection for the treatment of breast cancer. Six months later, she presents with significant non-pitting edema in her ipsilateral arm. Which of the following mechanisms best explains the fluid accumulation in this patient's arm?",
+                options: {
+                    A: "Increased capillary hydrostatic pressure",
+                    B: "Decreased plasma colloid osmotic pressure",
+                    C: "Impaired return of interstitial fluid to the circulation",
+                    D: "Increased capillary permeability",
+                    E: "Increased interstitial hydrostatic pressure"
+                },
+                correctAnswer: "C",
+                rationale: "The lymphatic system is responsible for collecting interstitial fluid that is not reabsorbed at the venous end of capillaries. Removal of lymph nodes disrupts these vessels, leading to the accumulation of interstitial fluid (lymphedema).",
+                source: "blood, body fluid, and cardiovascular physiology.pdf, Slide 35: \"The interstitial fluid that is not reclaimed in the capillary is collected in the lymphatic system... Interstitial fluid that enters the lymphatic ducts is called lymph... The typically negative Pif is due to the lymphatic system pumping this fluid away.\""
+            },
+            {
+                section: "Blood, Body Fluids, and Cardiovascular Physiology",
+                maskedLO: "LO2: Explain the role of the cardiovascular system, capillary exchange and lymphatics in body fluid balance.",
+                fullLO: "LO2: Explain the role of the cardiovascular system, capillary exchange and lymphatics in body fluid balance. (Blood, Body Fluids, and Cardiovascular Physiology)",
+                question: "A researcher is studying fluid dynamics in the microcirculation. Under normal physiological conditions, fluid is filtered out at the arterial end of a capillary and partially reabsorbed at the venous end. Which of the following physiological factors is primarily responsible for the reabsorption of fluid at the venous end of the capillary?",
+                options: {
+                    A: "Capillary hydrostatic pressure",
+                    B: "Interstitial fluid hydrostatic pressure",
+                    C: "Plasma oncotic pressure",
+                    D: "Interstitial fluid colloid osmotic pressure",
+                    E: "Lymphatic drainage rate"
+                },
+                correctAnswer: "C",
+                rationale: "The plasma oncotic pressure (colloid osmotic pressure), driven by plasma proteins like albumin, provides a constant \"pulling\" force keeping fluid in or drawing fluid back into the capillary. As hydrostatic pressure drops from the arterial to the venous end, the oncotic pressure eventually exceeds hydrostatic pressure, favoring reabsorption.",
+                source: "blood, body fluid, and cardiovascular physiology.pdf, Slides 28 & 37: \"Plasma oncotic pressure is predominantly determined by albumin and globulin... p = Osmotic/Oncotic Pressure 'pulling/sucking force'\""
+            },
+            {
+                section: "Blood, Body Fluids, and Cardiovascular Physiology",
+                maskedLO: "LO3: Explain the mechanisms of fluid movement across the cell membrane (osmolality) and across the capillary (Starling forces).",
+                fullLO: "LO3: Explain the mechanisms of fluid movement across the cell membrane (osmolality) and across the capillary (Starling forces). (Blood, Body Fluids, and Cardiovascular Physiology)",
+                question: "A 55-year-old man with a history of alcohol use disorder presents with abdominal distension. Physical examination reveals ascites. Laboratory studies show a significantly decreased serum albumin level. Which of the following changes in Starling forces is the primary cause of edema in this patient?",
+                options: {
+                    A: "Increased capillary hydrostatic pressure",
+                    B: "Decreased capillary hydrostatic pressure",
+                    C: "Increased capillary oncotic pressure",
+                    D: "Decreased capillary oncotic pressure",
+                    E: "Increased interstitial hydrostatic pressure"
+                },
+                correctAnswer: "D",
+                rationale: "Albumin is the major determinant of plasma oncotic pressure. Liver disease leads to decreased protein production, lowering the capillary oncotic pressure (the inward force). This imbalance favors net filtration into the interstitium, causing edema/ascites.",
+                source: "blood, body fluid, and cardiovascular physiology.pdf, Slide 41: \"Liver disease and decreased production of plasma proteins... Decreased “inward force”... Increased net filtration and more fluid in interstitial space\""
+            },
+            {
+                section: "Blood, Body Fluids, and Cardiovascular Physiology",
+                maskedLO: "LO3: Explain the mechanisms of fluid movement across the cell membrane (osmolality) and across the capillary (Starling forces).",
+                fullLO: "LO3: Explain the mechanisms of fluid movement across the cell membrane (osmolality) and across the capillary (Starling forces). (Blood, Body Fluids, and Cardiovascular Physiology)",
+                question: "A medical student is analyzing the movement of substances across a cell membrane. Which of the following statements best describes the permeability of the cell membrane to electrolytes compared to water, and its implication for fluid balance?",
+                options: {
+                    A: "The membrane is freely permeable to electrolytes, preventing osmotic gradients.",
+                    B: "The membrane is impermeable to water but permeable to electrolytes.",
+                    C: "The membrane acts as a barrier to electrolytes, allowing sodium to determine ECF tonicity.",
+                    D: "Water requires active transport to cross the cell membrane.",
+                    E: "An increase in total plasma osmolarity always results in fluid shifts."
+                },
+                correctAnswer: "C",
+                rationale: "The cell membrane acts as a semipermeable barrier; it is permeable to water (often via aquaporins) but restricts charged ions like sodium. Therefore, sodium remains in the ECF and becomes the major determinant of ECF tonicity, driving water movement (osmosis).",
+                source: "blood, body fluid, and cardiovascular physiology.pdf, Slide 16: \"The cell membrane is a barrier to electrolytes... Plasma sodium is the major determinant of ECF osmolarity and tonicity and impacts fluid shifts.\""
+            },
+
+            // --- Histology of Peripheral Blood ---
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO1: Recognize and define the parameters measured by the Complete Blood Count (CBC) including hemoglobin, hematocrit, MCV, WBC count and differential",
+                fullLO: "LO1: Recognize and define the parameters measured by the Complete Blood Count (CBC) including hemoglobin, hematocrit, MCV, WBC count and differential (Histology of Peripheral Blood)",
+                question: "A 45-year-old female presents with fatigue. Her Complete Blood Count (CBC) reveals a Hemoglobin of 9.0 g/dL. Which of the following CBC indices primarily reflects the average size of her red blood cells?",
+                options: {
+                    A: "Red Blood Cell (RBC) count",
+                    B: "Hematocrit (Hct)",
+                    C: "Mean Corpuscular Volume (MCV)",
+                    D: "Mean Cell Hemoglobin Concentration (MCHC)",
+                    E: "Platelet count"
+                },
+                correctAnswer: "C",
+                rationale: "The MCV (Mean Corpuscular Volume) is the index that measures the average volume or size of a red blood cell, typically expressed in femtoliters. It differentiates anemias into microcytic, normocytic, and macrocytic.",
+                source: "histology of peripheral blood.pdf, Slides 3 & 14: \"indices (size, hemoglobin)... Mean cell volume (per RBC, in femtoliters)\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO1: Recognize and define the parameters measured by the Complete Blood Count (CBC) including hemoglobin, hematocrit, MCV, WBC count and differential",
+                fullLO: "LO1: Recognize and define the parameters measured by the Complete Blood Count (CBC) including hemoglobin, hematocrit, MCV, WBC count and differential (Histology of Peripheral Blood)",
+                question: "A physician interprets a CBC for a patient with a suspected infection. The \"differential\" portion of the CBC provides which of the following specific information?",
+                options: {
+                    A: "The total number of white blood cells per cubic millimeter.",
+                    B: "The percentage breakdown of white blood cells by morphology/type.",
+                    C: "The percentage of total blood volume occupied by red blood cells.",
+                    D: "The weight of hemoglobin in the blood.",
+                    E: "The number of platelets per milliliter."
+                },
+                correctAnswer: "B",
+                rationale: "The differential cell count breaks down the WBCs by morphology (neutrophils, lymphocytes, etc.) and expresses them as a percentage of the total WBC count.",
+                source: "histology of peripheral blood.pdf, Slide 24: \"Differential cell count • breakdown by morphology • expressed as % of total WBC\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO2: Recognize normal histology of peripheral blood RBCs, and identify characteristic abnormalities (anisocytosis, microcytosis, spherocytosis, sickled cells, reticulocytosis)",
+                fullLO: "LO2: Recognize normal histology of peripheral blood RBCs, and identify characteristic abnormalities (anisocytosis, microcytosis, spherocytosis, sickled cells, reticulocytosis) (Histology of Peripheral Blood)",
+                question: "A blood smear from a 22-year-old African American male presenting with severe joint pain reveals numerous RBCs that are elongated and crescent-shaped. These cells lack the normal deformability required to pass through capillaries. This morphology is caused by the crystallization of which of the following?",
+                options: {
+                    A: "Spectrin",
+                    B: "Abnormal hemoglobin",
+                    C: "Ankyrin",
+                    D: "Ribosomal RNA",
+                    E: "Nuclear remnants"
+                },
+                correctAnswer: "B",
+                rationale: "Sickled red cells, seen in sickle-cell anemia, are shaped like crescents due to crystals of abnormal hemoglobin. They are not deformable and obstruct capillaries.",
+                source: "histology of peripheral blood.pdf, Slide 16: \"Sickled red cells... due to crystals of abnormal hemoglobin... they obstruct capillaries (sickle-cell crisis).\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO2: Recognize normal histology of peripheral blood RBCs, and identify characteristic abnormalities (anisocytosis, microcytosis, spherocytosis, sickled cells, reticulocytosis)",
+                fullLO: "LO2: Recognize normal histology of peripheral blood RBCs, and identify characteristic abnormalities (anisocytosis, microcytosis, spherocytosis, sickled cells, reticulocytosis) (Histology of Peripheral Blood)",
+                question: "A peripheral blood smear shows red blood cells that are smaller than the nucleus of a small lymphocyte and have a central pallor that occupies more than one-third of the cell's diameter. Additionally, there is variation in the size of the cells. Which of the following terms best describes these findings?",
+                options: {
+                    A: "Macrocytic and hyperchromic with anisocytosis",
+                    B: "Microcytic and hypochromic with anisocytosis",
+                    C: "Normocytic and normochromic with poikilocytosis",
+                    D: "Spherocytic with reticulocytosis",
+                    E: "Sickled with polychromasia"
+                },
+                correctAnswer: "B",
+                rationale: "Microcytic means small (smaller than a lymphocyte nucleus). Hypochromic means increased central pallor (>1/3 diameter). Anisocytosis means RBCs of different sizes. This is characteristic of Iron-deficiency anemia.",
+                source: "histology of peripheral blood.pdf, Slide 13: \"Iron-deficiency anemia RBC morphology: • microcytic... • hypochromic... • anisocytosis\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO3: Recognize normal histology and identify the function(s) of peripheral blood WBC subsets (lymphocytes, neutrophils, eosinophils, basophils, monocytes) and the significance of band forms, atypical lymphocytes, and leukemic blasts",
+                fullLO: "LO3: Recognize normal histology and identify the function(s) of peripheral blood WBC subsets (lymphocytes, neutrophils, eosinophils, basophils, monocytes) and the significance of band forms, atypical lymphocytes, and leukemic blasts (Histology of Peripheral Blood)",
+                question: "A patient presents with a fever and sore throat. A peripheral blood smear reveals an elevated number of white blood cells with segmented nuclei. Several immature forms with U-shaped nuclei are also noted. The presence of these immature forms is referred to as a \"left shift\" and is most indicative of which of the following?",
+                options: {
+                    A: "Viral infection",
+                    B: "Parasitic infection",
+                    C: "Bacterial infection",
+                    D: "Allergic reaction",
+                    E: "Chronic autoimmune disorder"
+                },
+                correctAnswer: "C",
+                rationale: "The cells described are neutrophils and \"band\" forms (immature neutrophils). An increase in bands (left shift) is a marker of stress, typically indicating a bacterial infection.",
+                source: "histology of peripheral blood.pdf, Slide 33: \"“band” forms - immature neutrophils, indicative of stress • often a marker of bacterial infection • referred to as a “left shift” on the differential cell count\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO3: Recognize normal histology and identify the function(s) of peripheral blood WBC subsets (lymphocytes, neutrophils, eosinophils, basophils, monocytes) and the significance of band forms, atypical lymphocytes, and leukemic blasts",
+                fullLO: "LO3: Recognize normal histology and identify the function(s) of peripheral blood WBC subsets (lymphocytes, neutrophils, eosinophils, basophils, monocytes) and the significance of band forms, atypical lymphocytes, and leukemic blasts (Histology of Peripheral Blood)",
+                question: "A patient with a known history of asthma presents for a routine checkup. A CBC with differential is performed. Which of the following leukocyte types, characterized by a bilobed nucleus and large red/orange cytoplasmic granules, would most likely be elevated in this patient?",
+                options: {
+                    A: "Neutrophils",
+                    B: "Basophils",
+                    C: "Monocytes",
+                    D: "Eosinophils",
+                    E: "Lymphocytes"
+                },
+                correctAnswer: "D",
+                rationale: "Eosinophils are characterized by a segmented (often bilobed) nucleus and large eosinophilic (red/orange) granules. They are elevated in allergies and parasitic infections.",
+                source: "histology of peripheral blood.pdf, Slide 35: \"Eosinophils • elevated in allergies, parasitic infections... • segmented nucleus; large eosinophilic granules\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO4: Recognize the normal histology of peripheral blood platelets",
+                fullLO: "LO4: Recognize the normal histology of peripheral blood platelets (Histology of Peripheral Blood)",
+                question: "A medical student is examining a normal peripheral blood smear. She identifies small, anucleated cell fragments containing blue granules that are typically smaller than red blood cells. What is the primary function of these elements?",
+                options: {
+                    A: "Oxygen transport",
+                    B: "Phagocytosis of bacteria",
+                    C: "Antibody production",
+                    D: "Initiation of the clotting cascade",
+                    E: "Histamine release"
+                },
+                correctAnswer: "D",
+                rationale: "The elements described are platelets. Their primary function is adhering to damaged endothelium and initiating the fibrin clotting cascade.",
+                source: "histology of peripheral blood.pdf, Slides 45 & 46: \"Platelets... core of blue granules... adhere to damaged endothelium and initiate the fibrin clotting cascade\""
+            },
+            {
+                section: "Histology of Peripheral Blood",
+                maskedLO: "LO4: Recognize the normal histology of peripheral blood platelets",
+                fullLO: "LO4: Recognize the normal histology of peripheral blood platelets (Histology of Peripheral Blood)",
+                question: "Microscopic examination of a blood smear reveals small cellular fragments with a central granulomere containing granules and lysosomes, and a peripheral hyalomere containing microtubules. These fragments are derived from the cytoplasm of which bone marrow cell?",
+                options: {
+                    A: "Reticulocyte",
+                    B: "Megakaryocyte",
+                    C: "Myeloblast",
+                    D: "Monoblast",
+                    E: "Lymphoblast"
+                },
+                correctAnswer: "B",
+                rationale: "Platelets are disk-shaped cytoplasmic fragments with a cortical hyalomere (microtubules) and a central granulomere. While the PDF does not explicitly name the megakaryocyte in the text block, it describes the platelet structure and notes they are fragments involved in clotting, which are derived from megakaryocytes (standard histological knowledge implied by \"fragment\").",
+                source: "histology of peripheral blood.pdf, Slide 47: \"The central portion of the platelet —containing granules and lysosomes— is called the granulomere. ... Peripheral microtubules and microfilaments constitute the hyalomere.\""
+            },
+
+            // --- Heme Synthesis and Porphyria ---
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO1: Describe the structure/function of heme and the pathway of heme synthesis.",
+                fullLO: "LO1: Describe the structure/function of heme and the pathway of heme synthesis. (Heme Synthesis and Porphyria)",
+                question: "Biochemical analysis of the heme synthesis pathway reveals that the process begins and ends in a specific cellular organelle, while intermediate steps occur in the cytosol. Which of the following enzymes catalyzes the rate-limiting step of this pathway within the mitochondria?",
+                options: {
+                    A: "ALA-dehydratase",
+                    B: "PBG-deaminase",
+                    C: "Uroporphyrinogen III synthase",
+                    D: "Mitochondrial ALAS (Aminolevulinic acid synthase)",
+                    E: "Ferrochelatase"
+                },
+                correctAnswer: "D",
+                rationale: "The synthesis of heme begins in the mitochondria with the condensation of Glycine and Succinyl-CoA. This step is catalyzed by ALAS, which is the rate-limiting step controlling heme synthesis.",
+                source: "heme synthesis and porphyria.pdf, Slide 17: \"Mitochondrial ALAS is the rate limiting step controlling heme synthesis\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO1: Describe the structure/function of heme and the pathway of heme synthesis.",
+                fullLO: "LO1: Describe the structure/function of heme and the pathway of heme synthesis. (Heme Synthesis and Porphyria)",
+                question: "Heme is a cyclic tetrapyrrole that serves as a prosthetic group for various proteins. In the final step of heme synthesis, ferrous iron (Fe2+) is incorporated into the protoporphyrin IX ring. Which enzyme catalyzes this specific reaction?",
+                options: {
+                    A: "ALA synthase",
+                    B: "Ferrochelatase",
+                    C: "Coproporphyrinogen oxidase",
+                    D: "Uroporphyrinogen decarboxylase",
+                    E: "PBG deaminase"
+                },
+                correctAnswer: "B",
+                rationale: "The final step (Step 6) of heme synthesis is the addition of iron to the protoporphyrin IX core. This reaction is catalyzed by Ferrochelatase.",
+                source: "heme synthesis and porphyria.pdf, Slide 16: \"Step 6: Add iron to the core... Protoporphyrin IX -> FERROCHELATASE -> Heme\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO2: Explain how heme synthesis is regulated in liver and bone marrow.",
+                fullLO: "LO2: Explain how heme synthesis is regulated in liver and bone marrow. (Heme Synthesis and Porphyria)",
+                question: "In the liver, heme synthesis is tightly regulated to meet the demands of CYP450 enzymes. Which of the following mechanisms primarily downregulates the activity of hepatic ALAS1?",
+                options: {
+                    A: "Stimulation by phenobarbital",
+                    B: "Negative feedback by Heme",
+                    C: "Activation by PGC-1a",
+                    D: "Stimulation by insulin",
+                    E: "Binding of Iron Response Element-Binding Protein (IRE-BP)"
+                },
+                correctAnswer: "B",
+                rationale: "In the liver, the end-product, Heme, provides negative feedback to ALAS1, inhibiting its activity. Drugs like phenobarbital stimulate it, but heme suppresses it.",
+                source: "heme synthesis and porphyria.pdf, Slide 18: \"Regulation of hepatic ALAS1... Heme --| ALAS1\" (Red line indicating inhibition in diagram)"
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO2: Explain how heme synthesis is regulated in liver and bone marrow.",
+                fullLO: "LO2: Explain how heme synthesis is regulated in liver and bone marrow. (Heme Synthesis and Porphyria)",
+                question: "Regulation of heme synthesis in erythropoietic tissue differs from that in the liver. In the bone marrow, the translation of ALAS2 mRNA is primarily regulated by the availability of which of the following?",
+                options: {
+                    A: "Glucose",
+                    B: "Heme",
+                    C: "Iron (Fe2+)",
+                    D: "Erythropoietin",
+                    E: "Glucagon"
+                },
+                correctAnswer: "C",
+                rationale: "In erythropoietic tissue, ALAS2 regulation involves the Iron Response Element-Binding Protein (IRE-BP). When iron (Fe2+) is present, it binds to IRE-BP, preventing it from inhibiting translation, thus allowing ALAS2 synthesis.",
+                source: "heme synthesis and porphyria.pdf, Slide 19: \"Regulation of Erythropoietic ALAS2... IRE-BP binds Fe2+ ... ALAS2\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes.",
+                fullLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes. (Sub-objective A: Porphyria cutanea tarda) (Heme Synthesis and Porphyria)",
+                question: "A 50-year-old man presents with blistering skin lesions on the dorsum of his hands and hyperpigmentation. He reports that his urine sometimes appears tea-colored. His history is significant for alcohol use. He is diagnosed with Porphyria Cutanea Tarda (PCT). Which enzyme is defective in this patient?",
+                options: {
+                    A: "PBG deaminase",
+                    B: "Uroporphyrinogen III decarboxylase",
+                    C: "Ferrochelatase",
+                    D: "ALA dehydratase",
+                    E: "Coproporphyrinogen oxidase"
+                },
+                correctAnswer: "B",
+                rationale: "PCT is caused by a deficiency in Uroporphyrinogen (UPG) III decarboxylase. Symptoms include delayed photosensitivity, skin fragility, blistering, and tea-colored urine (uroporphyrins).",
+                source: "heme synthesis and porphyria.pdf, Slides 23 & 24: \"Porphyria cutanea tarda (PCT)... UPG III-DECARBOXYLASE... Symptoms: Delayed photosensitivity (adult onset), Skin fragility, blistering...\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes.",
+                fullLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes. (Sub-objective B: Acute intermittent porphyria) (Heme Synthesis and Porphyria)",
+                question: "A 25-year-old female presents to the emergency department with severe abdominal pain, tachycardia, and acute confusion. She recently started a restrictive diet. She has no skin rash. Her urine turns reddish-brown after standing in the light. This clinical presentation is most consistent with a defect in which of the following enzymes?",
+                options: {
+                    A: "PBG (Porphobilinogen) deaminase",
+                    B: "Ferrochelatase",
+                    C: "Uroporphyrinogen decarboxylase",
+                    D: "ALA synthase",
+                    E: "Biliverdin reductase"
+                },
+                correctAnswer: "A",
+                rationale: "Acute Intermittent Porphyria (AIP) is caused by a defect in PBG deaminase. Symptoms are neuropsychiatric (abdominal pain, tachycardia, psychosis) and are often initiated by fasting or drugs. There is no photosensitivity. Urine turns dark due to oxidized porphobilinogen.",
+                source: "heme synthesis and porphyria.pdf, Slides 20 & 21: \"Acute intermittent porphyria (AIC)... PBG-DEAMINASE... Neuropsychiatric Symptoms... Abdominal pain, tachycardia... Reddish-brown colored urine after sunlight exposure\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes.",
+                fullLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes. (Sub-objective C: Erythropoietic protoporphyria) (Heme Synthesis and Porphyria)",
+                question: "A 6-year-old boy is brought to the pediatrician because of immediate crying and complaints of burning skin whenever he plays outside in the sun. Examination reveals redness and swelling of the skin but no blistering. Laboratory analysis shows excess protoporphyrin in the red blood cells. A deficiency of which enzyme is the most likely cause?",
+                options: {
+                    A: "ALAS2",
+                    B: "Uroporphyrinogen III synthase",
+                    C: "Ferrochelatase",
+                    D: "PBG deaminase",
+                    E: "ALA dehydratase"
+                },
+                correctAnswer: "C",
+                rationale: "Erythropoietic protoporphyria (EPP) is caused by a ferrochelatase deficiency. It presents with acute non-blistering photosensitivity (burning/itching) in children and excess protoporphyrin in RBCs.",
+                source: "heme synthesis and porphyria.pdf, Slides 25 & 26: \"Erythropoietic protoporphyria (EPP)... FERROCHELATASE... Symptoms: Acute non-blistering photosensitivity (pediatric onset)... Excess protoporphyrin in the blood plasma and RBC\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes.",
+                fullLO: "LO3: Describe how defects in heme synthesis lead to porphyria, and identify the symptoms of the most common causes. (Sub-objective D: Lead poisoning) (Heme Synthesis and Porphyria)",
+                question: "A child living in an older home presents with abdominal pain, headache, and irritability. A peripheral blood smear shows basophilic stippling of erythrocytes. In the heme synthesis pathway, lead toxicity primarily inhibits Ferrochelatase and which other enzyme?",
+                options: {
+                    A: "ALA synthase",
+                    B: "ALA dehydratase",
+                    C: "PBG deaminase",
+                    D: "Uroporphyrinogen decarboxylase",
+                    E: "Coproporphyrinogen oxidase"
+                },
+                correctAnswer: "B",
+                rationale: "Lead toxicity inhibits two enzymes in the heme pathway: ALA-dehydratase (Step 2) and Ferrochelatase (Step 6). This leads to increased urine ALA and erythrocyte protoporphyrins.",
+                source: "heme synthesis and porphyria.pdf, Slide 29: \"Lead toxicity... Pb inhibits ALA-DEHYDRATASE... Pb inhibits FERROCHELATASE\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO4: Explain the rationale for porphyria treatment, including the use of hemin and glucose.",
+                fullLO: "LO4: Explain the rationale for porphyria treatment, including the use of hemin and glucose. (Heme Synthesis and Porphyria)",
+                question: "A patient with Acute Intermittent Porphyria is treated with intravenous Hemin. The therapeutic rationale for this treatment is that Hemin reduces the accumulation of toxic intermediates by downregulating which of the following enzymes?",
+                options: {
+                    A: "Hepatic ALAS1",
+                    B: "Erythropoietic ALAS2",
+                    C: "PBG deaminase",
+                    D: "Ferrochelatase",
+                    E: "Heme oxygenase"
+                },
+                correctAnswer: "A",
+                rationale: "Hemin provides negative feedback to the liver, inhibiting (downregulating) ALAS1. Since ALAS1 is the rate-limiting step, inhibiting it prevents the accumulation of the upstream toxic intermediates (ALA and PBG) that cause the symptoms.",
+                source: "heme synthesis and porphyria.pdf, Slide 18: \"Regulation of hepatic ALAS1... Heme --| ALAS1\"; Slide 21: \"Treatment: -Intravenous infusion of Hemin\""
+            },
+            {
+                section: "Heme Synthesis and Porphyria",
+                maskedLO: "LO4: Explain the rationale for porphyria treatment, including the use of hemin and glucose.",
+                fullLO: "LO4: Explain the rationale for porphyria treatment, including the use of hemin and glucose. (Heme Synthesis and Porphyria)",
+                question: "A patient experiencing an acute attack of porphyria is administered a high-dose glucose infusion. How does glucose administration help alleviate the symptoms of the attack?",
+                options: {
+                    A: "It increases the excretion of porphyrins in the urine.",
+                    B: "It acts as a cofactor for Ferrochelatase.",
+                    C: "It inhibits the expression of ALAS1 (mechanisms involving PGC-1a).",
+                    D: "It increases the conversion of ALA to Porphobilinogen.",
+                    E: "It prevents the oxidation of porphobilinogen in the urine."
+                },
+                correctAnswer: "C",
+                rationale: "Fasting induces PGC-1a, which activates ALAS1. Glucose/Insulin inhibits PGC-1a, thereby inhibiting ALAS1. By inhibiting the rate-limiting step, the production of toxic intermediates is reduced.",
+                source: "heme synthesis and porphyria.pdf, Slides 18 & 21: \"Insulin --| PGC-1a -> ALAS1... Treatment: -Infusion of glucose\""
+            },
+
+            // --- Anemia ---
+            {
+                section: "Anemia",
+                maskedLO: "LO1: Describe a brief overview of RBC production",
+                fullLO: "LO1: Describe a brief overview of RBC production (Anemia)",
+                question: "Erythropoiesis is a homeostatic process regulated by oxygen levels. Which of the following physiological events directly stimulates the production of erythropoietin (EPO)?",
+                options: {
+                    A: "Increased blood viscosity",
+                    B: "Hypoxia in the kidney",
+                    C: "Elevated serum iron levels",
+                    D: "Increased destruction of red blood cells by the spleen",
+                    E: "Release of reticulocytes from the bone marrow"
+                },
+                correctAnswer: "B",
+                rationale: "Hypoxia (decreased oxygenation) stabilizes Hypoxia-inducible factor, which stimulates the transcription of the erythropoietin (EPO) gene. EPO then promotes the production of mature red blood cells.",
+                source: "approach to anemia.pdf, Slide 6: \"Hypoxia-inducible factor is degraded under conditions of normal oxygen tension. But in anemia or hypoxia, it promotes gene transcription of erythropoietin (EPO)\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO1: Describe a brief overview of RBC production",
+                fullLO: "LO1: Describe a brief overview of RBC production (Anemia)",
+                question: "Iron is essential for red blood cell production. In a state of iron repleteness (full body stores), the liver secretes hepcidin. What is the mechanism by which hepcidin regulates iron absorption?",
+                options: {
+                    A: "It binds to transferrin to increase iron transport.",
+                    B: "It degrades ferroportin, blocking iron egress from enterocytes.",
+                    C: "It increases the acidity of the stomach to enhance absorption.",
+                    D: "It stimulates the synthesis of ferritin in the bone marrow.",
+                    E: "It inhibits the reduction of ferric iron to ferrous iron."
+                },
+                correctAnswer: "B",
+                rationale: "Hepcidin binds to ferroportin (the iron transporter) and degrades it. This blocks iron egress from the enterocyte (and macrophages), reducing iron absorption into the bloodstream.",
+                source: "approach to anemia.pdf, Slide 5: \"hepcidin binds to ferroportin degrades it and blocks iron egress\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO2: Define anemia and its etiologies",
+                fullLO: "LO2: Define anemia and its etiologies (Anemia)",
+                question: "A 65-year-old male presents for a routine checkup. His hemoglobin is found to be 12.5 g/dL. Based on the general definitions provided for anemia, how should this finding be interpreted?",
+                options: {
+                    A: "Normal, as hemoglobin thresholds are lower in males than females.",
+                    B: "Normal, as hemoglobin levels physiologically decline in older age.",
+                    C: "Anemic, as the threshold for males is <13 g/dL.",
+                    D: "Anemic, as the threshold for males is <14 g/dL.",
+                    E: "Polycythemic, as the value is elevated."
+                },
+                correctAnswer: "C",
+                rationale: "The definition of anemia for males is Hemoglobin <13 g/dL. While Hgb may decline in older age, <13 is the standard definition provided.",
+                source: "approach to anemia.pdf, Slide 10: \"MALES Hemoglobin <13 g/dL (130 g/L) or hematocrit <39 percent\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO2: Define anemia and its etiologies",
+                fullLO: "LO2: Define anemia and its etiologies (Anemia)",
+                question: "Anemia can be classified mechanistically into three broad categories. Which of the following conditions is best classified as an anemia caused by \"RBC destruction\"?",
+                options: {
+                    A: "Iron deficiency",
+                    B: "Thalassemia",
+                    C: "Sideroblastic anemia",
+                    D: "Myelodysplastic syndrome",
+                    E: "GI bleeding"
+                },
+                correctAnswer: "B",
+                rationale: "Thalassemia is categorized under \"RBC destruction\" (specifically congenital hemolytic anemias) in the provided classification table. Iron deficiency and Sideroblastic anemia are \"Decreased RBC production,\" and GI bleeding is \"RBC loss.\"",
+                source: "approach to anemia.pdf, Slide 15: \"Causes of anemia... RBC destruction... Congenital hemolytic anemias... Thalassemia\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO3: Describe defining signs & symptoms of various causes",
+                fullLO: "LO3: Describe defining signs & symptoms of various causes (Anemia)",
+                question: "A 35-year-old woman presents with fatigue. During the review of systems, she admits to a compulsion to chew on ice cubes (pagophagia). This symptom is most strongly associated with which type of anemia?",
+                options: {
+                    A: "B12 deficiency anemia",
+                    B: "Iron deficiency anemia",
+                    C: "Hemolytic anemia",
+                    D: "Anemia of chronic disease",
+                    E: "Sideroblastic anemia"
+                },
+                correctAnswer: "B",
+                rationale: "Pica, specifically craving for ice (pagophagia), is a specific sign often associated with iron deficiency anemia.",
+                source: "approach to anemia.pdf, Slide 24: \"Craving for ice... Pica... Iron Deficiency Anemia: Common Signs and Symptoms\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO3: Describe defining signs & symptoms of various causes",
+                fullLO: "LO3: Describe defining signs & symptoms of various causes (Anemia)",
+                question: "A patient presents with fatigue and dyspnea. Physical examination reveals scleral icterus (jaundice). Urinalysis indicates dark urine. Which category of anemia should be suspected first based on these signs?",
+                options: {
+                    A: "Hemolytic anemia",
+                    B: "Iron deficiency anemia",
+                    C: "Folate deficiency",
+                    D: "Aplastic anemia",
+                    E: "Anemia of Chronic Kidney Disease"
+                },
+                correctAnswer: "A",
+                rationale: "Pallor, jaundice (yellowing of eyes/skin), and dark urine are signs specifically associated with hemolytic anemia (RBC destruction).",
+                source: "approach to anemia.pdf, Slide 14: \"Look for pallor, jaundice, dark urine (Hemolytic anemia).\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO4: Approach a patient with anemia to reach a diagnosis",
+                fullLO: "LO4: Approach a patient with anemia to reach a diagnosis (Anemia)",
+                question: "A patient is found to have anemia. The reticulocyte count is ordered as a first step to categorize the anemia. If the reticulocyte count is \"normal\" in the setting of anemia, how should this be interpreted regarding the bone marrow's response?",
+                options: {
+                    A: "The bone marrow is responding appropriately.",
+                    B: "The bone marrow is hyperactive.",
+                    C: "The bone marrow response is considered decreased/inadequate.",
+                    D: "The patient likely has acute blood loss.",
+                    E: "The patient has hemolysis."
+                },
+                correctAnswer: "C",
+                rationale: "In a patient with anemia, the bone marrow should compensate by increasing RBC production (reticulocytosis). Therefore, a \"normal\" reticulocyte count is essentially an abnormal response and indicates the marrow is failing to compensate (decreased production).",
+                source: "approach to anemia.pdf, Slide 16: \"A normal reticulocyte count in a case of anemia, reflects an abnormal response, and should be considered decreased.\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO4: Approach a patient with anemia to reach a diagnosis",
+                fullLO: "LO4: Approach a patient with anemia to reach a diagnosis (Anemia)",
+                question: "A patient's CBC reveals a Mean Corpuscular Volume (MCV) of 72 fL. Which of the following etiologies should be prioritized in the differential diagnosis based on this index?",
+                options: {
+                    A: "B12 deficiency",
+                    B: "Folate deficiency",
+                    C: "Hypothyroidism",
+                    D: "Iron deficiency",
+                    E: "Liver disease"
+                },
+                correctAnswer: "D",
+                rationale: "An MCV < 80 fL defines Microcytic anemia. Iron deficiency and Thalassemia are the primary causes of microcytic anemia. B12/Folate/Liver disease cause Macrocytic anemia (>100).",
+                source: "approach to anemia.pdf, Slide 17: \"Microcytic MCV < 80... Iron deficiency\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO5: Identify the different laboratory test to diagnosis",
+                fullLO: "LO5: Identify the different laboratory test to diagnosis (Anemia)",
+                question: "A 40-year-old female has microcytic anemia. Iron studies are ordered. Which of the following parameters best reflects the patient's total body iron stores?",
+                options: {
+                    A: "Serum iron",
+                    B: "Total iron binding capacity (TIBC)",
+                    C: "Ferritin",
+                    D: "Iron saturation",
+                    E: "Hemoglobin"
+                },
+                correctAnswer: "C",
+                rationale: "Ferritin is a tissue iron storage protein secreted into serum. It is the parameter that best reflects total body iron stores.",
+                source: "approach to anemia.pdf, Slide 30: \"Ferritin... Best reflects total body iron stores\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO5: Identify the different laboratory test to diagnosis",
+                fullLO: "LO5: Identify the different laboratory test to diagnosis (Anemia)",
+                question: "A patient presents with jaundice and a drop in hemoglobin. To confirm a diagnosis of hemolysis, which specific set of laboratory tests would be most useful?",
+                options: {
+                    A: "Ferritin and TIBC",
+                    B: "LDH and Haptoglobin",
+                    C: "Vitamin B12 and Folate levels",
+                    D: "Creatinine and GFR",
+                    E: "TSH and Liver function tests"
+                },
+                correctAnswer: "B",
+                rationale: "Hemolysis labs include LDH and haptoglobin. LDH goes up due to cell breakdown, and haptoglobin goes down as it binds free hemoglobin.",
+                source: "approach to anemia.pdf, Slide 18: \"Hemolysis labs: LDH, haptoglobin especially in patients with jaundice with acute drop in Hgb.\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO6: Identify available & cost-effective treatment modalities",
+                fullLO: "LO6: Identify available & cost-effective treatment modalities (Anemia)",
+                question: "A 28-year-old female is diagnosed with iron deficiency anemia. She is prescribed oral iron. To maximize absorption, which of the following instructions is most appropriate?",
+                options: {
+                    A: "Take the iron with a high-fat meal.",
+                    B: "Take the iron with an antacid to prevent stomach upset.",
+                    C: "Take the iron every other day (alternating days).",
+                    D: "Use a slow-release formulation.",
+                    E: "Take the iron with milk."
+                },
+                correctAnswer: "C",
+                rationale: "Alternating day dosing appears superior because hepcidin levels rise for 24 hours after ingestion, which would block absorption of a dose taken the next day. Slow-release forms are poorly absorbed. Antacids reduce absorption.",
+                source: "approach to anemia.pdf, Slide 32: \"Alternating day iron dosing appears superior, e.g., Mon, Wed. Fri!\""
+            },
+            {
+                section: "Anemia",
+                maskedLO: "LO6: Identify available & cost-effective treatment modalities",
+                fullLO: "LO6: Identify available & cost-effective treatment modalities (Anemia)",
+                question: "A 65-year-old male presents with severe Upper Gastrointestinal Bleeding (UGIB). He has a history of coronary artery disease. According to restrictive transfusion strategies associated with better mortality outcomes, at what hemoglobin threshold should this patient receive a transfusion?",
+                options: {
+                    A: "< 10 g/dL",
+                    B: "< 9 g/dL",
+                    C: "< 8 g/dL",
+                    D: "< 7 g/dL",
+                    E: "< 12 g/dL"
+                },
+                correctAnswer: "D",
+                rationale: "For patients with severe UGIB, a restrictive transfusion goal (Transfuse if Hgb < 7 g/dL) is associated with better 45-day mortality and lower rebleeding rates compared to liberal strategies.",
+                source: "approach to anemia.pdf, Slides 49 & 54: \"A transfusion threshold of 7 g/dL is used in patients with upper GI bleeding\""
+            }
+        ];
+
+        // --- Core Logic ---
+        const quizRoot = document.getElementById('quiz-root');
+        const themeSelect = document.getElementById('theme-select');
+        const pinBtn = document.getElementById('pin-btn');
+        const mainHeader = document.getElementById('main-header');
+
+        function initQuiz() {
+            // Render Questions
+            let currentSection = "";
+            
+            quizData.forEach((item, index) => {
+                // Insert Section Header if needed
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sectionHeader = document.createElement('h2');
+                    sectionHeader.className = 'section-header';
+                    sectionHeader.textContent = currentSection;
+                    quizRoot.appendChild(sectionHeader);
+                }
+
+                // Create Card
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                // Learning Objective (Masked)
+                const loBox = document.createElement('div');
+                loBox.className = 'lo-box';
+                loBox.id = `lo-${index}`;
+                loBox.textContent = item.maskedLO;
+                card.appendChild(loBox);
+
+                // Question Text
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.textContent = `${index + 1}. ${item.question}`;
+                card.appendChild(qText);
+
+                // Options Container
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                for (const [key, value] of Object.entries(item.options)) {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = key;
+
+                    const span = document.createElement('span');
+                    // Retain letters: A. Option Text
+                    span.textContent = `${key}. ${value}`;
+
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    optionsGrid.appendChild(label);
+                }
+                card.appendChild(optionsGrid);
+
+                // Check Button
+                const btn = document.createElement('button');
+                btn.className = 'btn-check';
+                btn.textContent = 'Check Answer';
+                btn.onclick = () => checkAnswer(index);
+                card.appendChild(btn);
+
+                // Feedback Container
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${index}`;
+                card.appendChild(feedback);
+
+                quizRoot.appendChild(card);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('quizTheme') || 'dark';
+            changeTheme(savedTheme);
+            themeSelect.value = savedTheme;
+
+            // Load saved pin state
+            const savedPinState = localStorage.getItem('headerPinned');
+            // Default to true (pinned) if not set or if set to true
+            if (savedPinState === 'false') {
+                toggleHeader(false); 
+            } else {
+                toggleHeader(true);
+            }
+        }
+
+        function checkAnswer(index) {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            const loEl = document.getElementById(`lo-${index}`);
+            const data = quizData[index];
+
+            if (!selected) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            // Reveal LO
+            loEl.textContent = data.fullLO;
+
+            // Generate Feedback HTML
+            const isCorrect = selected.value === data.correctAnswer;
+            
+            let html = `<span class="feedback-header">${isCorrect ? "Correct!" : "Incorrect"}</span>`;
+            if (!isCorrect) {
+                html += `<div>The correct answer is <strong>${data.correctAnswer}</strong>.</div>`;
+            }
+            
+            html += `<div class="rationale"><strong>Rationale:</strong> ${data.rationale}</div>`;
+            html += `<div class="source"><strong>Source:</strong> ${data.source}</div>`;
+
+            feedbackEl.innerHTML = html;
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackEl.style.display = 'block';
+        }
+
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('quizTheme', themeName);
+        }
+
+        function toggleHeader(forceState) {
+            // Determine current state based on class presence
+            const isCurrentlyPinned = !mainHeader.classList.contains('unpinned');
+            
+            // If forceState is provided (boolean), use it. Otherwise toggle current state.
+            const newState = (typeof forceState === 'boolean') ? forceState : !isCurrentlyPinned;
+
+            if (newState) {
+                // Pin
+                mainHeader.classList.remove('unpinned');
+                pinBtn.classList.add('pin-active');
+                localStorage.setItem('headerPinned', 'true');
+            } else {
+                // Unpin
+                mainHeader.classList.add('unpinned');
+                pinBtn.classList.remove('pin-active');
+                localStorage.setItem('headerPinned', 'false');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initQuiz);
+
+    </script>
+</body>
+</html>
